@@ -10,6 +10,17 @@ import (
 	"testing"
 )
 
+func TestGT1(t *testing.T) {
+	a := big.NewInt(1)
+
+	g1a, _ := new(bn256.G1).Unmarshal(new(bn256.G1).ScalarBaseMult(a).Marshal())
+	g2a, _ := new(bn256.G2).Unmarshal(new(bn256.G2).ScalarBaseMult(a).Marshal())
+
+	k1 := bn256.Pair(g1a, g2a)
+	k1.ScalarMult(k1, a)
+	fmt.Println(k1.String())
+}
+
 func TestPlayBN256(t *testing.T) {
 
 	a, _ := rand.Int(rand.Reader, bn256.Order)
